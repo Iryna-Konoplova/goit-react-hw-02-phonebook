@@ -1,5 +1,6 @@
 // Модули
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Компоненты
 import ContactListItem from '../ContactListItem/ContactListItem';
@@ -8,13 +9,16 @@ const ContactList = ({ contacts }) => (
   <ul>
     {contacts.map(contact => (
       <ContactListItem
-        // key={contact.id}
-        // avatar={friend.avatar}
+        key={contact.id}
+        number={contact.number}
         name={contact.name}
-        // isOnline={friend.isOnline}
       />
     ))}
   </ul>
 );
+
+ContactList.propTypes = {
+  contacts: PropTypes.array.isRequired,
+};
 
 export default ContactList;

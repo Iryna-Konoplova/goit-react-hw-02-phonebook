@@ -1,5 +1,6 @@
 // Модули
 import React, { Component } from 'react';
+import shortid from 'shortid';
 
 class ContactForm extends Component {
   state = {
@@ -7,9 +8,13 @@ class ContactForm extends Component {
     number: '',
   };
 
+  nameInputId = shortid.generate();
+
+  numberInputId = shortid.generate();
+
   handleChange = e => {
     const { name, value } = e.currentTarget;
-    this.setState({ [name]: value });
+    this.setState({ id: shortid.generate(), [name]: value });
   };
 
   handleSubmit = e => {
@@ -26,7 +31,7 @@ class ContactForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>
+        <label htmlFor={this.nameInputId}>
           Name
           <input
             type="text"
@@ -36,9 +41,10 @@ class ContactForm extends Component {
             required
             value={this.state.name}
             onChange={this.handleChange}
+            id={this.nameInputId}
           />
         </label>
-        <label>
+        <label htmlFor={this.numberInputId}>
           Number
           <input
             type="tel"
@@ -48,6 +54,7 @@ class ContactForm extends Component {
             required
             value={this.state.number}
             onChange={this.handleChange}
+            id={this.numberInputId}
           />
         </label>
 
