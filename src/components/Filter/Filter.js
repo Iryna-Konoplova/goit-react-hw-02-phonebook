@@ -2,16 +2,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Стили
+import styles from '../Filter/filter.module.css';
+
 const Filter = ({ value, onChange }) => {
   return (
-    <label>
+    <label className={styles.filterLabel}>
       Find contacts by name
       <input
+        className={styles.filterInput}
         type="text"
         name="filter"
         value={value}
         onChange={onChange}
-        // id={this.nameInputId}
       />
     </label>
   );

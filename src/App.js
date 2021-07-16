@@ -1,11 +1,13 @@
 // Модули
 import React, { Component } from 'react';
-// import shortid from 'shortid';
 
 // Компоненты
 import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
 import Filter from './components/Filter';
+
+// Стили
+import styles from './App.module.css';
 
 class App extends Component {
   state = {
@@ -18,11 +20,11 @@ class App extends Component {
     filter: '',
   };
 
-  // formSubmitHandler = data => {
-  //   console.log(data);
-  //   // this.setState.contacts(contacts.push(data))
-
-  // };
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+  };
 
   formSubmitHandler = ({ id, name, number }) => {
     this.setState(prevState => ({
@@ -45,17 +47,20 @@ class App extends Component {
 
   render() {
     const { contacts, filter } = this.state;
-
     const visibleContacts = this.getVisibleContacts();
 
     return (
-      <div>
-        <h1>Phonebook</h1>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Phonebook</h1>
         <ContactForm contacts={contacts} onSubmit={this.formSubmitHandler} />
 
-        <h2>Contacts</h2>
+        <h2 className={styles.subtitle}>Contacts</h2>
         <Filter value={filter} onChange={this.changeFilter} />
-        <ContactList contacts={visibleContacts} onChange={this.changeFilter} />
+        <ContactList
+          contacts={visibleContacts}
+          onChange={this.changeFilter}
+          onDeletContact={this.deleteContact}
+        />
       </div>
     );
   }
